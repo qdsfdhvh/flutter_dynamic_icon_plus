@@ -12,13 +12,13 @@ class FlutterDynamicIconPlusService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = START_NOT_STICKY
 
-    override fun onTaskRemoved(rootIntent: Intent?) {
+    override fun onCreate() {
+        super.onCreate()
         changeAppIcon()
 
         val sp = getSharedPreferences(FlutterDynamicIconPlusPlugin.pluginName, Context.MODE_PRIVATE)
         sp.edit()?.remove(FlutterDynamicIconPlusPlugin.appIcon)?.apply()
 
-        super.onTaskRemoved(rootIntent)
         stopSelf()
     }
 
